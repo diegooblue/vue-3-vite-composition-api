@@ -1,20 +1,34 @@
 <template>
-  <div
-    class="bg-white p-12 rounded-lg shadow-lg flex flex-col justify-center items-center select-none"
-  >
-    <div class="text-lg text-center">
-      vite.js + vue3 + vuex + router + tailwind.css
+  <div class="">
+    <ContactHeader @search="searchContact" />
+    <div class="grid grid-cols-4 gap-5 overflow-auto h-80">
+      <ContactCard
+        v-for="(contact, idx) in filteredContacts"
+        :key="contact.name.first + idx"
+        :contact="contact"
+      />
     </div>
-    <Butt @click="go" color="indigo" class="mt-12">global component</Butt>
   </div>
 </template>
 
 <script>
+import ContactHeader from "../components/ContactHeader.vue";
+import ContactCard from "../components/ContactCard.vue";
+import useContacts from "../hooks/UseContacts.js";
+
 export default {
-  methods: {
-    go() {
-      window.open("https://jarraga.com", "_blank");
-    },
+  components: { ContactHeader, ContactCard },
+  setup() {
+    const { isLoading, search, filteredContacts } = useContacts();
+    function searchContact(query) {
+      search.value = query;
+    }
+    return {
+      search,
+      filteredContacts,
+      searchContact,
+      isLoading,
+    };
   },
 };
 </script>

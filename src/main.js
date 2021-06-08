@@ -10,7 +10,7 @@ app.use(store)
 app.use(router)
 
 // global components
-import Butt from './components/Butt.vue'
-app.component('Butt', Butt)
+// import Butt from './components/Butt.vue'
+// app.component('Butt', Butt)
 
 app.mount('#app')
